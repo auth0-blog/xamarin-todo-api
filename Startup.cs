@@ -41,7 +41,6 @@ namespace auth0_todo_api
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
