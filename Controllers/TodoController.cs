@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using auth0_todo_api.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace auth0_todo_api.Controllers
 {
@@ -8,13 +10,16 @@ namespace auth0_todo_api.Controllers
   [ApiController]
   public class TodoController : ControllerBase
   {
-    [HttpGet]
-    public Task<List<string>> Get()
+    private readonly TodoDataContext dataContext;
+
+    public TodoController(TodoDataContext context)
     {
-      return Task.FromResult(new List<string> {
-        "Hello",
-        "World"
-      });
+      this.dataContext = context;
+    }
+
+    public List<TodoItem> Get()
+    {
+      return dataContext.TodoItems.ToList();
     }
   }
 }
