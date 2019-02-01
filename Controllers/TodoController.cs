@@ -28,5 +28,25 @@ namespace auth0_todo_api.Controllers
       await dataContext.TodoItems.AddAsync(item);
       await dataContext.SaveChangesAsync();
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult> UpdateItem(int id, TodoItem item)
+    {
+      var dbItem = await dataContext.TodoItems.FindAsync(id);
+
+      if (dbItem != null)
+      {
+        dbItem.Title = item.Title;
+        dbItem.IsDone = item.IsDone;
+
+        await dataContext.SaveChangesAsync();
+
+        return Ok();
+      }
+      else 
+      {
+        return NotFound();
+      }
+    }
   }
 }
