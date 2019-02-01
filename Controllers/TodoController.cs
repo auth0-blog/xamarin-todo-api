@@ -21,5 +21,12 @@ namespace auth0_todo_api.Controllers
     {
       return dataContext.TodoItems.ToList();
     }
+
+    [HttpPost]
+    public async Task AddItem(TodoItem item)
+    {
+      await dataContext.TodoItems.AddAsync(item);
+      await dataContext.SaveChangesAsync();
+    }
   }
 }
