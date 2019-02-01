@@ -43,10 +43,29 @@ namespace auth0_todo_api.Controllers
 
         return Ok();
       }
-      else 
+      else
+      {
+        return NotFound();
+      }
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteItem(int id)
+    {
+      var item = await dataContext.TodoItems.FindAsync(id);
+
+      if (item != null)
+      {
+        dataContext.Remove(item);
+        await dataContext.SaveChangesAsync();
+
+        return Ok();
+      }
+      else
       {
         return NotFound();
       }
     }
   }
 }
+Ì
