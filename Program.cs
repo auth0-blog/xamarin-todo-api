@@ -10,15 +10,22 @@ using Microsoft.Extensions.Logging;
 
 namespace auth0_todo_api
 {
-    public class Program
+  public class Program
+  {
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            CreateWebHostBuilder(args).Build().Run();
-        }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+      CreateWebHostBuilder(args).Build().Run();
     }
+
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args){
+        var config = new ConfigurationBuilder()
+            .AddEnvironmentVariables()
+            .Build();
+        
+        return WebHost.CreateDefaultBuilder(args)
+            .UseUrls("http://*:3001")
+            .UseConfiguration(config)
+            .UseStartup<Startup>();
+    }
+  }
 }
